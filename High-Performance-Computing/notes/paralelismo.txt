@@ -1,0 +1,33 @@
+Cómputo Paralelo. 
+
+- Paralelismo a nivel de tarea o trabajo. 
+Hacer que un hilo o proceso ejecuten algún tipo de trabajo.
+Ejecutar un algoritmo sobre un conjunto de datos que se 
+pueda distribuir en varias tareas. 
+
+- Paralelismo a nivel de datos
+Como ejecutar un algoritmo de tal modo que se pueda 
+distribuir.
+
+En los hilos se puede aplicar cualquiera de las siguientes
+técnicas.
+
+   - Paralelismo en bloques
+     - En los procesos conviene más utilizar esta forma.     
+   
+   - Paralelismo en forma alternada.
+     - En los hilos conviene más utilizar esta forma.
+     - Procesamiento de imágenes, algoritmos de filtrado y segmentación. 
+     
+Los siguientes tipos de Paralelismo están definidos en la Arquitectura del procesador
+
+- Paralelismo a nivel de instrucción
+Este es el que realiza la Arquitectura del Procesador. 
+Esto viene internamente en la Arquitectura del Procesador. 
+
+- Paralelismo a nivel de bit. 
+Tiene que ver con el formato de instrucción así como la ruta 
+de datos del procesador. 
+
+El ciclo 'for' para recorrer un arreglo se hace de manera secuencial, 
+ya que los elementos se recorren 1 por 1
