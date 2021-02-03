@@ -1,0 +1,121 @@
+Estructura de un Sistema Operativo
+
+- Sistemas monolíticos - Linux, Linus Torvalds.
+Todo el sistema operativo se ejecuta en algo que se concoce
+como espacio de kernel, es decir, el programa se ejecuta 
+como solo programa en modo de kernel.
+
+Ventajas de un Sistema Monolítico:
+
+- Desarrollar módulos de kernel personalizados
+e insertarlos (carga dinámica de módulos de kernel) 
+al kernel principal para añadir
+funciones especializadas a este.
+- Tiene soporte para multiprocesadores simétricos (SMP)
+- No hace diferencia entre hilos y procesos, ya que ambas 
+  llamadas al sistema llaman a la función 'clone' del sistema
+- Se crean las clases de dispositivos de manera automática cuando
+se conectan al sistema. 
+- Preemption: Nos permite planificar/programar las ISR
+es decir, que comportamiento tendrán cuando se conecten.
+Las funciones inline son equivalentes a las Macros 
+
+
+
+Espacio de Usuario: Son los archivos donde realizamos aplicaciones,
+para estos programas podemos utilizar llamadas del sistema.
+
+Las llamadas del sistema nos permiten acceder al espacio de kernel.
+
+- Sistemas de capas - THE, Dijkstra.
+- Microkernels - Minix, Tanenbaum.
+
+          Estados de los procesos
+
+- Proceso Zombi: Se trata de un proceso hijo que terminó su ejecución, pero 
+el proceso padre no espero a que este terminara. Es posible sacar a un proceso 
+de este estado utilizando la llamada al sistema 'wait', ya que el Sistema Operativo 
+le indicará al proceso padre que ya hay procesos hijos que terminaron su ejecución.
+
+          Comandos útiles para procesos
+          
+- top: Nos permite ver los procesos en ejecución así como su bandera de estado.         
+
+Comunicación Interproceso (IPC)
+
+Nos realizar la comunicación entre los procesos que se crean. 
+Los procesos pueden intercambiar datos entre sí. 
+
+Comunicación entre procesos a Nivel Local:
+- Tuberías. 
+- Semáforos.
+- Memoria COmpartida.
+
+Comunicación entre procesos nivel remoto.
+- Sockets TCP
+- Sockets UDP
+
+Tuberías "pipe"
+
+#include <unistd.h>
+int pipe(int pidefd[2]);
+Descriptor de archivo para lectura.   '0'
+Descriptor de archivo para para estritura. '1'
+Se crea un canal de datos unidireccional que puede 
+ser usado para comunicación entre procesos. 
+Sólo el procesos que hace la llamada y sus descendientes 
+pueden utilizarla. (Proceso padre y sus hijos)
+
+Las llamadas al sistema read y write las utilizamos en las
+tuberías. 
+unlimit -a: Nos muestra al tamaño más grande del pipe
+4 kilobits es el máximo tamaño del bloque de la tubería 
+
+La vida del proceso inicia con la llamada al sistema fork()
+
+El padre reanuda la ejecución y el hijo inicia la ejecución
+en el mismo lugar donde fue invocada fork.
+
+Si tiene exito se regresa el PID del proceso hijo en el procesos padre
+y retorna cero en el proceso hijo, por eso verificar si el pid es cero, 
+ya que cuando es cero significa que el proceso hijo se creo correctamente. 
+
+EL proceso termina y libera sus recursos con la llamada al
+sistema exit()
+Un proceso padre puede preguntar sobre el estado de un proceso hijo terminado
+con la llamada al sistema wait()
+
+EL valor de retorno de la llamada al sistema exit() puede ser capturado en
+el proceso padre con la llamada al sistema wait.
+
+En espacio de kernel los procesos se conocen como tasks.
+El sistema identifica el proceso mediante un valor de identificación
+de proceso llamado PID
+
+El valor máximo de default es 32768
+Este valor se modifica en, nos muestra el número de procesos
+que tenemos configurado por defecto.
+sudo cat /proc/sys/kernel/pid_max
+
+ps -e Podemos ver los procesos en ejecución del sistema
+EL proceso de arranque siempre tiene el PID 1.
+El proceso con PID 1 nos indica el tipo de sistema de arranque que tenemos en nuestro sistema
+para nuestro caso es 'systemd'
+
+
+
+Fork -> Task_Running : Esta listo, pero aún no se esta corriendo el procesos.
+El planificador de procesos se encarga de correr el proceso y poner en el proceso TASK_RUNNING
+
+TASK_INTERRUMPIBLE: Necesita de un recurso del teclado o pantalla para leer datos,
+y cuando ya se le proporciono por lo que necesita para ejecutarse, se vuelve a pasar al
+estado TASK_RUNNING
+
+AL realizar la llamada el sistema fork(), todos los recursos que pertenecen
+al padre sin duplicados y la copia es dada al proceso hijo. 
+En linux fork() es implementado con Copy-on-write
+Retrasa la copia de los datos, para que en lugar de que se dupliquen todos los datos
+del proceso padre, ahora solo mejor comparten una memoria , de tal modo que los datos estén
+en modo lectura hasta que se haga una escritura por parte del proceso hijo, qué es cuando ya se realiza la copia.
+La copia de memoria ocurre cuando se hace una escritura por parte del proceso hijo
+
