@@ -1,0 +1,116 @@
+                Archivo Makefile.
+
+Para realizar la ejecución de un archivo 
+make basta con escribir en la consola el 
+comando 'make'
+
+Los archivos 'Makefile' cuentan con la propiedad 
+de que sí el archivo al que hacen referencia ya
+se encuentra compilado, estos no lo volverán a
+compilar otra vez, ya que solo reconstruyen los
+programas cuyos archivos de componentes (.c, .h) 
+han cambiado.
+
+La estructura de este tipo de archivos es:
+        
+        objetivo: regla
+
+Donde cada objetivo se conseguirá siguiendo las
+reglas especificadas para este. Estas reglas son
+conocidas como 'dependencias'.
+
+                  Variables. 
+
+Si queremos añadir variables dentro de nuestro
+archivo 'Makefile', por convención, las variables
+se indican en mayúsculas, lo podemos realizar de la 
+siguiente manera:
+       
+        Nombre_Varible=Valor
+
+Nota. Es muy importante que no haya ningún espacio
+Así mismo, el nombre de la variable puede ser el 
+que nosotros queramos.
+
+Para utilizar las variables en nuestro archivo lo
+que tenemos que hacer es especificarlas así:
+        
+        $(Nombre_Varible)
+
+           Objetivos Falsos.
+
+.PHONY: Se encarga de resolver los problemas de 
+coincidencias entre los nombres de los archivos
+fuentes y los nombres de los objetivos, si este
+encuentra un objetivo que se llame igual que un
+archivo fuente, este objetivo falso se encargará
+de resolver este tipo de problemas.
+
+install: Se encarga de instalar nuestra aplicación
+(archivo ejecutable) en la ruta que especifiquemos.
+En Linux se encuentra un directorio exclusivo para 
+que nosotros podamos instalar nuestras aplicaciones
+el cuál se localiza en la ruta: /usr/local/bin
+
+La ventaja de instalar nuestras aplicaciones en 
+la ruta /usr/local/bin, es que ahora las podremos 
+ejecutar en cualquier parte del sistema de archivos
+de Linux, es decir, ahora nuestras aplicaciones son
+comandos del sistema.
+
+Cuando la aplicación se vuelve un comando del 
+sistema, esta ya no se ejecutará de la forma 
+tradicional: './app', sino que ahora sólo basta
+con escribir el nombre de la aplicación 'app'.
+
+uninstall: Se encarga de desinstalar nuestra 
+aplicación de la ruta que especifiquemos.
+
+clean: Se encarga de eliminar todos los archivos,
+tanto objeto como ejecutables que se hayan creado
+en el momento en que se ejecuto el comando 'make'
+Podríamos decir que elimina todo lo que creo el
+archivo 'Makefile'.
+
+Estos objetivos no se ejecutan automáticamente, 
+sino que tienen ser ejecutados desde la terminal 
+del siguiente modo:
+
+        make Nombre_Objetivo_Falso
+
+              Dependencias
+
+En los archivos Makefile se define una lista de
+dependencias, generalmente estas se tratan de
+archivos necesarios para crear el objetivo.  
+
+                Reglas de Patrón
+
+El objetivo contiene exactamente un carácter (%)
+que concuerda con cualquier cadena que no esté 
+vacía. Las dependencias de tal regla también utilizan
+(%) para coincidir con el objetivo. Ejemplo:
+
+- %.o: %.c 
+
+La regla anterior generará todos los archivos objectos
+(archivo.o) con todos los archivos fuente que encuentre.
+
+                Variables Automáticas
+
+Estas variables, 'make' las reemplaza automáticamente por 
+un valor específico conocido dentro del archivo Makefile.
+
+$@: Hace referencia al nombre del archivo del objetivo de una regla.
+$<: Hace referencia al nombre de la primer dependencia de una regla.
+$^: Hace referencia a un conjunto de dependencias de una regla. 
+
+
+Comandos Útiles.
+
+-d: Sirve para verificar la existencia de un
+    directorio.
+
+fi: Es lo contrario de la sentencia 'if', es decir,
+    lo que comúnmente conocemos como 'else'. 
+

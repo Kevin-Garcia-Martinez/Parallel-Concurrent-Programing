@@ -1,0 +1,65 @@
+Los hilos comparten los recursos del proceso padre
+Los hilos son objetos dinámicos cada uno de los cuales
+ejecuta una seroe de instrucciones. 
+
+El espacio de memoria es compartido. 
+Los hilos permiten la programación concurrente.
+
+
+Concurrencia. 
+
+Máximo de hilos que podrían estarse ejecutando simultánemente
+si dispusiera de un número limitado de procesadores.
+
+No disponemos de los cores físicos para atender cada proceso
+sino que los cores toman fragmentos de los procesos y los atienten
+conforme se vayan desocupando.
+Cuantos procesos puede atender un core físico
+Un solo core físico atiende a diferentes procesos, diviendo su tiempo del
+procesador para atender a los procesos. 
+
+CORE 1 - P1(50%)
+(100%) - P2(50%)x  La ejecución entre P1 Y P2 se hace de manera concurrente, porque estos 
+                   dos procesos asignados al core no se ejecutan al mismo tiempo, sino que 
+                   el core los ejecuta en intervalos de tiempo pequeños.
+
+CORE 2 - P3(50%)x
+(100%) - P4(50%)  
+
+CORE 3 - P5(50%)x
+(100%) - P6(50%)  La ejecución de los procesos en el core es de forma concurrente.
+                  La ejecución entre cores es de forma paralela.
+CORE 4 - P7(50%)
+(100%) - P8(50%)x
+
+Los que contienen la 'x' se ejecutan paralelamente debido a que se están ejecutando al mismo 
+tiempo pero en diferente core.
+
+Cuantos procesos ejecuta un proceso físico.
+
+
+Paralelismo.
+
+Cuando tenemos 3 procesos en ejecución, van a existir al menos 3 cores
+físicos para atender a cada proceso.  
+
+La diferencia entre concurrencia y Paralelismo
+
+Si queremos paralelismo
+n cores igual a los n procesos.
+
+
+Para evitar una condición de carrera, tenemos que hacer que las
+variables/datos compartidos deben estar en exclusión mutua.
+
+Debemos establecer la sección crítica: Es la sección de nuestro programa
+que no queremos que otros proceso interrumpan cuando uno tomo control de
+esta.
+
+Objetos de sincronización. 
+
+- Mutex.(Bloqueo por exclusión mutua) podemos controlar el 
+acceso a los datos que tendrán los hilos en el programa
+- Variables de condición. 
+- Semáforos. 
+
