@@ -1,2 +1,2 @@
 # Parallel-Concurrent-Programing
-Implementing threads, pipes, process for concurrent programing using C and MakeFiles.
+Implementation of threads, pipes, process for concurrent programing using C language and MakeFiles.
